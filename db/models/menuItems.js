@@ -18,7 +18,8 @@ const menuItemsSchema = new mongoose.Schema({
     type: String
   },
   updatedAt: {
-    type: Date
+    type: Date,
+    default: Date.now
   }
 });
 menuItemsSchema.set("toJSON", {
