@@ -82,6 +82,19 @@ const getByStatus = async (status) => {
   return orders;
 };
 
+const getTotalSales = async () => {
+  let total = 0;
+  const orders = await Order.find().populate("items.item");
+  function addSale(sale) {
+    total += sale.item.price * sale.quantity;
+  }
+  function getSales(order) {
+    order.items.forEach(addSale);
+  }
+  orders.forEach(getSales);
+  return { total };
+};
+
 module.exports = {
   getAll,
   getOne,
@@ -89,5 +102,6 @@ module.exports = {
   update,
   remove,
   getByStatus,
+  getTotalSales,
   Order
 };
